@@ -1,5 +1,7 @@
+import Notes from "./components/Notes";
+
 function App() {
-  return <h1>App</h1>;
+  return <Notes />;
 }
 
 export default App;
