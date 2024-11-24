@@ -6,11 +6,21 @@ import {
   setNewOffset,
 } from "../utils.js";
 import { Trash2 } from "lucide-react";
+import db from "../appwrite/databases.js";
 
 function NoteCard({ note }) {
   const colors = JSON.parse(note.colors);
   const [position, setPosition] = useState(JSON.parse(note.position));
   const body = parseBody(note.body);
+
+  async function savePosition(key, value) {
+    const payload = { [key]: JSON.stringify(value) };
+    try {
+      await db.notes.update(note.$id, payload);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const cardRef = useRef(null);
   let mouseStartPos = { x: 0, y: 0 };
@@ -39,6 +49,9 @@ function NoteCard({ note }) {
   function mouseUp() {
     document.removeEventListener("mousemove", mouseMove);
     document.removeEventListener("mousedown", mouseDown);
+
+    const newPostion = setNewOffset(cardRef.current);
+    savePosition("position", newPostion);
   }
 
   const textAreaRef = useRef(null);
