@@ -1,6 +1,7 @@
 import React from "react";
 import { Plus } from "lucide-react";
 import db from "../appwrite/databases";
+import colors from "../assets/colors.json";
 
 export default function AddNotes({ fetchNotes }) {
   const addNote = async () => {
@@ -10,12 +11,7 @@ export default function AddNotes({ fetchNotes }) {
         x: 10,
         y: 10,
       }),
-      colors: JSON.stringify({
-        id: "color-yellow",
-        colorHeader: "#FFEFBE",
-        colorBody: "#FFF5DF",
-        colorText: "#18181A",
-      }),
+      colors: JSON.stringify(colors[0]),
     };
 
     await db.notes.create(payload);
