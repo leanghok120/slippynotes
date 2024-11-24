@@ -5,21 +5,38 @@ import {
   parseBody,
   setNewOffset,
 } from "../utils.js";
-import { Trash2 } from "lucide-react";
 import db from "../appwrite/databases.js";
 
 function NoteCard({ note }) {
   const colors = JSON.parse(note.colors);
   const [position, setPosition] = useState(JSON.parse(note.position));
   const body = parseBody(note.body);
+  const [saving, setSaving] = useState(false);
 
-  async function savePosition(key, value) {
+  const keyUpTimer = useRef(null);
+
+  async function saveData(key, value) {
     const payload = { [key]: JSON.stringify(value) };
     try {
       await db.notes.update(note.$id, payload);
     } catch (error) {
       console.log(error);
     }
+
+    setSaving(false);
+  }
+
+  async function handleKeyUp() {
+    setSaving(true);
+
+    if (keyUpTimer.current) {
+      clearTimeout(keyUpTimer.current);
+    }
+
+    // Save after 2s of not typing
+    keyUpTimer.current = setTimeout(() => {
+      saveData("body", textAreaRef.current.value);
+    }, 2000);
   }
 
   const cardRef = useRef(null);
@@ -51,7 +68,7 @@ function NoteCard({ note }) {
     document.removeEventListener("mousedown", mouseDown);
 
     const newPostion = setNewOffset(cardRef.current);
-    savePosition("position", newPostion);
+    saveData("position", newPostion);
   }
 
   const textAreaRef = useRef(null);
@@ -73,12 +90,10 @@ function NoteCard({ note }) {
       onMouseDown={() => focusCard(cardRef.current)}
     >
       <div
-        className="p-2 rounded-tl-2xl rounded-tr-2xl cursor-grab"
+        className="p-4 rounded-tl-2xl rounded-tr-2xl cursor-grab"
         style={{ backgroundColor: colors.colorHeader }}
         onMouseDown={mouseDown}
-      >
-        <Trash2 />
-      </div>
+      ></div>
       <div className="p-5">
         <textarea
           ref={textAreaRef}
@@ -89,6 +104,7 @@ function NoteCard({ note }) {
           onInput={() => {
             adjustNoteHeight(textAreaRef);
           }}
+          onKeyUp={handleKeyUp}
         ></textarea>
       </div>
     </div>
