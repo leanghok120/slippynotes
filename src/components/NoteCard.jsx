@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { setNewOffset } from "./dragging";
 import { Trash2 } from "lucide-react";
 
 function NoteCard({ note }) {
@@ -26,10 +27,8 @@ function NoteCard({ note }) {
     mouseStartPos.x = e.clientX;
     mouseStartPos.y = e.clientY;
 
-    setPosition({
-      x: cardRef.current.offsetLeft - mouseMoveDir.x,
-      y: cardRef.current.offsetTop - mouseMoveDir.y,
-    });
+    const newPostion = setNewOffset(cardRef.current, mouseMoveDir);
+    setPosition(newPostion);
   }
 
   function mouseUp() {
