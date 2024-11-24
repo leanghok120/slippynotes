@@ -14,7 +14,7 @@ export default function AddNotes({ fetchNotes }) {
         id: "color-aqua",
         colorHeader: "#689d6a",
         colorBody: "#8ec07c",
-        colorText: "#fbf1c7",
+        colorText: "#282828",
       }),
     };
 
