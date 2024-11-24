@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { setNewOffset } from "./dragging";
+import { adjustNoteHeight, setNewOffset } from "../utils.js";
 import { Trash2 } from "lucide-react";
 
 function NoteCard({ note }) {
@@ -38,14 +38,8 @@ function NoteCard({ note }) {
 
   const textAreaRef = useRef(null);
 
-  function adjustNoteHeight() {
-    const textarea = textAreaRef.current;
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  }
-
   useEffect(() => {
-    adjustNoteHeight();
+    adjustNoteHeight(textAreaRef);
   }, []);
 
   return (
@@ -73,7 +67,7 @@ function NoteCard({ note }) {
           name="body"
           className="bg-inherit focus:outline-none resize-none text-xl w-full"
           defaultValue={body}
-          onInput={adjustNoteHeight}
+          onInput={() => adjustNoteHeight(textAreaRef)}
         ></textarea>
       </div>
     </div>

@@ -7,3 +7,9 @@ export const setNewOffset = (card, mouseMoveDir = { x: 0, y: 0 }) => {
     y: offsetTop < 0 ? 0 : offsetTop,
   };
 };
+
+export const adjustNoteHeight = (textAreaRef) => {
+  const textarea = textAreaRef.current;
+  textarea.style.height = "auto";
+  textarea.style.height = `${textarea.scrollHeight}px`;
+};
