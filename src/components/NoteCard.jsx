@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { adjustNoteHeight, setNewOffset } from "../utils.js";
+import { adjustNoteHeight, focusCard, setNewOffset } from "../utils.js";
 import { Trash2 } from "lucide-react";
 
 function NoteCard({ note }) {
@@ -45,13 +45,14 @@ function NoteCard({ note }) {
   return (
     <div
       ref={cardRef}
-      className="rounded-2xl w-96 absolute"
+      className="rounded-2xl w-96 absolute card"
       style={{
         backgroundColor: colors.colorBody,
         color: colors.colorText,
         left: `${position.x}px`,
         top: `${position.y}px`,
       }}
+      onMouseDown={() => focusCard(cardRef.current)}
     >
       <div
         className="p-2 rounded-tl-2xl rounded-tr-2xl cursor-grab"
@@ -67,7 +68,9 @@ function NoteCard({ note }) {
           name="body"
           className="bg-inherit focus:outline-none resize-none text-xl w-full"
           defaultValue={body}
-          onInput={() => adjustNoteHeight(textAreaRef)}
+          onInput={() => {
+            adjustNoteHeight(textAreaRef);
+          }}
         ></textarea>
       </div>
     </div>

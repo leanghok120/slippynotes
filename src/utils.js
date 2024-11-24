@@ -13,3 +13,13 @@ export const adjustNoteHeight = (textAreaRef) => {
   textarea.style.height = "auto";
   textarea.style.height = `${textarea.scrollHeight}px`;
 };
+
+export const focusCard = (selectedCard) => {
+  selectedCard.style.zIndex = 999;
+
+  Array.from(document.getElementsByClassName("card")).forEach((card) => {
+    if (card !== selectedCard) {
+      card.style.zIndex = selectedCard.style.zIndex - 1;
+    }
+  });
+};
