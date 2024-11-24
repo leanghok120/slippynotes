@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { adjustNoteHeight, focusCard, setNewOffset } from "../utils.js";
+import {
+  adjustNoteHeight,
+  focusCard,
+  parseBody,
+  setNewOffset,
+} from "../utils.js";
 import { Trash2 } from "lucide-react";
 
 function NoteCard({ note }) {
-  const body = JSON.parse(note.body);
   const colors = JSON.parse(note.colors);
   const [position, setPosition] = useState(JSON.parse(note.position));
+  const body = parseBody(note.body);
 
   const cardRef = useRef(null);
   let mouseStartPos = { x: 0, y: 0 };

@@ -23,3 +23,11 @@ export const focusCard = (selectedCard) => {
     }
   });
 };
+
+export const parseBody = (body) => {
+  try {
+    return JSON.parse(body);
+  } catch (error) {
+    return body;
+  }
+};
