@@ -6,7 +6,7 @@ function Notes() {
   return (
     <div className="h-full">
       {notes.map((note) => (
-        <NoteCard note={note} />
+        <NoteCard note={note} key={note.$id} />
       ))}
     </div>
   );
