@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NoteCard from "./NoteCard";
+import AddNotes from "./AddNotes";
 import db from "../appwrite/databases";
 
 function Notes() {
@@ -15,10 +16,11 @@ function Notes() {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full flex items-center p-5">
       {notes.map((note) => (
         <NoteCard note={note} key={note.$id} />
       ))}
+      <AddNotes />
     </div>
   );
 }
