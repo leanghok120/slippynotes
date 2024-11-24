@@ -20,7 +20,7 @@ function Notes() {
       {notes.map((note) => (
         <NoteCard note={note} key={note.$id} />
       ))}
-      <AddNotes />
+      <AddNotes fetchNotes={fetchNotes} />
     </div>
   );
 }
