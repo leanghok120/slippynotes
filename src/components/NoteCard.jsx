@@ -61,7 +61,7 @@ function NoteCard({ note }) {
       }}
     >
       <div
-        className="p-2 rounded-tl-2xl rounded-tr-2xl"
+        className="p-2 rounded-tl-2xl rounded-tr-2xl cursor-grab"
         style={{ backgroundColor: colors.colorHeader }}
         onMouseDown={mouseDown}
       >
