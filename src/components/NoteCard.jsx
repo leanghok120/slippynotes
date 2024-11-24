@@ -93,7 +93,9 @@ function NoteCard({ note }) {
         className="p-4 rounded-tl-2xl rounded-tr-2xl cursor-grab"
         style={{ backgroundColor: colors.colorHeader }}
         onMouseDown={mouseDown}
-      ></div>
+      >
+        {saving && <p className="flex gap-2">Saving...</p>}
+      </div>
       <div className="p-5">
         <textarea
           ref={textAreaRef}
